@@ -1,25 +1,38 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
 	<div class="home-welcome">
-		<img src="/src/assets/logos/habtronics.svg">
-		<p>Facilitating open access to upper air environments to pioneer education and research opportunities</p>
+		<img src="/src/assets/logos/habtronics.svg" />
+		<p>
+			Facilitating open access to upper air environments to pioneer
+			education and research opportunities
+		</p>
+	</div>
+	<div class="home-banner">
+		<img src="/src/assets/images/habgab-sky.svg">
 	</div>
 </Layout>
- 
+
 <style>
 	.home-welcome {
+		display: flex;
+    	flex-direction: column;
+    	align-items: center;
+    	text-align: center;
 	}
 	.home-welcome p {
 		width: 1000px;
 		font-family: Gugi;
-		text-align: center;
 		font-size: 40px;
 	}
 	.home-welcome img {
 		width: 500px;
 		height: auto;
+	}
+
+	.home-banner img {
+		width: 100%;
 	}
 </style>

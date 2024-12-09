@@ -1,3 +1,7 @@
+---
+import Navigation from "../components/Navigation.astro";
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -9,6 +13,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Gugi&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<Navigation />
 		<slot />
 	</body>
 </html>
@@ -17,6 +22,10 @@
 	html,
 	body {
 		display: flex;
+		flex-direction: column;
 		justify-content: center;
+    	margin: 0;
+		margin-top: 80px;
+    	padding: 0;
 	}
 </style>
