@@ -1,11 +1,68 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import ProductCard from "../components/ProductCard.astro";
 ---
 
 <Layout>
-	more coming soon!
+    <div class="banner">
+        <img
+            src="https://cloud-6anme7cf4-hack-club-bot.vercel.app/0habtronics.svg"
+        />
+        <input type="text" placeholder="Search" />
+    </div>
+    <div class="category">
+        <p>Electronics</p>
+    </div>
+    <div class="products">
+        <ProductCard />
+    </div>
+    <div class="category">
+        <p>Infrastructure</p>
+    </div>
+    <div class="products">
+        
+    </div>
+    <div class="category">
+        <p>Miscellaneous</p>
+    </div>
+    <div class="products">
+        
+    </div>
 </Layout>
 
 <style>
+    .banner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .banner img {
+        height: 122px;
+        margin-right: 70px;
+    }
+    .banner input {
+        height: 35px;
+        width: 365px;
+        border: solid black 3px;
+        font-family: "Gugi";
+        font-size: 30px;
+    }
+    .banner input::placeholder {
+        font-family: "Gugi";
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+    }
 
+    .category {
+        font-family: "Gugi";
+        font-size: 40px;
+        margin-left: 43px;
+    }
+
+    .products {
+        margin-left: 43px;
+    }
 </style>
