@@ -1,15 +1,24 @@
 ---
+interface Props {
+    title: string;
+    price: string;
+    href: string;
+    image: string;
+    position?: string;
+}
 
+// Destructure the props
+const { title, price, href, image, position } = Astro.props;
 ---
 
 <div class="product-card">
-    <img
-        src="https://cloud-bn2a22l5r-hack-club-bot.vercel.app/0habgab-sky.svg"
-    />
-    <h1>Tiny4FSK - The ultra-tiny high-altitude tracker</h1>
+    <img src={image} style=`object-position: ${position};` />
+    <h1>{title}</h1>
     <div class="price-banner">
-        <p>$52.65</p>
-        <input type="button" value="View Page">
+        <p>${price}</p>
+        <form action={href}>
+            <input type="submit" value="View Page" onclick="" />
+        </form>
     </div>
 </div>
 
@@ -64,6 +73,11 @@
         line-height: normal;
 
         border-radius: 10px;
-        background: #D9D9D9;
+        background: #d9d9d9;
+
+        cursor: pointer;
+    }
+    .price-banner input:hover {
+        opacity: 50%;
     }
 </style>

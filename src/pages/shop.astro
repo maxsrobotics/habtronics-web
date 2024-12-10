@@ -14,20 +14,21 @@ import ProductCard from "../components/ProductCard.astro";
         <p>Electronics</p>
     </div>
     <div class="products">
-        <ProductCard />
+        <ProductCard
+            title="Tiny4FSK - the ultra-tiny high-altitude tracker"
+            price="52.65"
+            href="/about-us"
+            image="https://cloud-6183mdvu4-hack-club-bot.vercel.app/0tiny4fsk-sky.svg"
+        />
     </div>
     <div class="category">
         <p>Infrastructure</p>
     </div>
-    <div class="products">
-        
-    </div>
+    <div class="products"></div>
     <div class="category">
         <p>Miscellaneous</p>
     </div>
-    <div class="products">
-        
-    </div>
+    <div class="products"></div>
 </Layout>
 
 <style>
@@ -63,6 +64,10 @@ import ProductCard from "../components/ProductCard.astro";
     }
 
     .products {
+        display: flex;
         margin-left: 43px;
+        gap: 30px;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 </style>
