@@ -8,7 +8,10 @@ import ProductCard from "../components/ProductCard.astro";
         <img
             src="https://cloud-6anme7cf4-hack-club-bot.vercel.app/0habtronics.svg"
         />
-        <input type="text" placeholder="Search" />
+        <form role="search">
+            <input type="text" placeholder="Search" />
+            <input type="submit" value="" />
+        </form>
     </div>
     <div class="category">
         <p>Electronics</p>
@@ -17,7 +20,7 @@ import ProductCard from "../components/ProductCard.astro";
         <ProductCard
             title="Tiny4FSK - the ultra-tiny high-altitude tracker"
             price="52.65"
-            href="/about-us"
+            href="https://www.tindie.com/products/hexandflex/300mhz-log-spiral-antenna-with-suction-mounts/"
             image="https://cloud-6183mdvu4-hack-club-bot.vercel.app/0tiny4fsk-sky.svg"
         />
     </div>
@@ -38,23 +41,41 @@ import ProductCard from "../components/ProductCard.astro";
         align-items: center;
         justify-content: center;
     }
+
     .banner img {
         height: 122px;
         margin-right: 70px;
     }
-    .banner input {
-        height: 35px;
+
+    .banner form {
+        display: flex;
+        align-items: center; /* Ensures the inputs align vertically */
+    }
+
+    .banner input[type="text"] {
+        height: 45px; /* Match the height of the submit button */
         width: 365px;
         border: solid black 3px;
         font-family: "Gugi";
         font-size: 30px;
     }
+
     .banner input::placeholder {
         font-family: "Gugi";
         font-size: 30px;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+    }
+
+    .banner input[type="submit"] {
+        width: 50px;
+        height: 45px; /* Match the height of the text input */
+        font-size: 20px;
+        border-radius: 10px;
+        margin-left: 30px;
+        background-image: url("https://cloud-ajkwx2v9x-hack-club-bot.vercel.app/0search.svg");
+        background-size: 40px;
+        background-repeat: no-repeat;
+        background-position: center; /* Centers the background image */
+        border: 3px black solid;
     }
 
     .category {

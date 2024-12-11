@@ -16,7 +16,7 @@ const { title, price, href, image, position } = Astro.props;
     <h1>{title}</h1>
     <div class="price-banner">
         <p>${price}</p>
-        <form action={href}>
+        <form action={href} target="_blank">
             <input type="submit" value="View Page" onclick="" />
         </form>
     </div>
@@ -38,7 +38,7 @@ const { title, price, href, image, position } = Astro.props;
         width: 260px;
         height: 280px;
         border-radius: 10px;
-        margin-top: 20px;
+        margin-top: 30px;
     }
     .product-card h1 {
         font-family: Gugi;
@@ -53,7 +53,7 @@ const { title, price, href, image, position } = Astro.props;
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 35px;
+        gap: 70px;
     }
     .price-banner p {
         font-family: Gugi;
