@@ -8,15 +8,14 @@ import ProductCard from "../components/ProductCard.astro";
         <img
             src="https://cloud-6anme7cf4-hack-club-bot.vercel.app/0habtronics.svg"
         />
-        <form role="search">
-            <input type="text" placeholder="Search" />
-            <input type="submit" value="" />
+        <form role="search" id="search-form" onsubmit="return false;">
+            <input type="text" placeholder="Search" id="search-input" />
         </form>
     </div>
     <div class="category">
         <p>Electronics</p>
     </div>
-    <div class="products">
+    <div class="products" id="product-list">
         <ProductCard
             title="Tiny4FSK - the ultra-tiny high-altitude tracker"
             price="52.65"
@@ -24,14 +23,6 @@ import ProductCard from "../components/ProductCard.astro";
             image="https://cloud-6183mdvu4-hack-club-bot.vercel.app/0tiny4fsk-sky.svg"
         />
     </div>
-    <div class="category">
-        <p>Infrastructure</p>
-    </div>
-    <div class="products"></div>
-    <div class="category">
-        <p>Miscellaneous</p>
-    </div>
-    <div class="products"></div>
 </Layout>
 
 <style>
@@ -49,11 +40,11 @@ import ProductCard from "../components/ProductCard.astro";
 
     .banner form {
         display: flex;
-        align-items: center; /* Ensures the inputs align vertically */
+        align-items: center;
     }
 
     .banner input[type="text"] {
-        height: 45px; /* Match the height of the submit button */
+        height: 45px;
         width: 365px;
         border: solid black 3px;
         font-family: "Gugi";
@@ -67,14 +58,14 @@ import ProductCard from "../components/ProductCard.astro";
 
     .banner input[type="submit"] {
         width: 50px;
-        height: 45px; /* Match the height of the text input */
+        height: 45px;
         font-size: 20px;
         border-radius: 10px;
         margin-left: 30px;
         background-image: url("https://cloud-ajkwx2v9x-hack-club-bot.vercel.app/0search.svg");
         background-size: 40px;
         background-repeat: no-repeat;
-        background-position: center; /* Centers the background image */
+        background-position: center;
         border: 3px black solid;
     }
 
@@ -92,3 +83,36 @@ import ProductCard from "../components/ProductCard.astro";
         flex-wrap: wrap;
     }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
+    const productList = document.getElementById("product-list") as HTMLElement | null;
+
+    if (!searchInput || !productList) {
+        return;
+    }
+
+    searchInput.addEventListener("input", () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const products = productList.children;
+
+        Array.from(products).forEach((product) => {
+            const productElement = product as HTMLElement;
+            const titleElement = productElement.querySelector("h1") as HTMLElement | null;
+
+            if (!titleElement) {
+                return;
+            }
+
+            const title = titleElement.textContent?.toLowerCase();
+            if (title && title.includes(searchTerm)) {
+                productElement.style.display = "block";
+            } else {
+                productElement.style.display = "none";
+            }
+        });
+    });
+});
+
+</script>
