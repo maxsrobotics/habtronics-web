@@ -114,7 +114,7 @@ import ProductCard from "../components/ProductCard.astro";
                 const title = titleElement.textContent?.toLowerCase();
                 if (title && title.includes(searchTerm)) {
                     productElement.style.visibility = "visible";
-                    productElement.style.height = "auto"; // Reset height to its content
+                    productElement.style.height = "460px"; // Reset height to its content
                 } else {
                     productElement.style.visibility = "hidden";
                     productElement.style.height = "0"; // Collapse the card height
