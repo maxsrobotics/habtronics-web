@@ -86,33 +86,40 @@ import ProductCard from "../components/ProductCard.astro";
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
-    const productList = document.getElementById("product-list") as HTMLElement | null;
+        const searchInput = document.getElementById(
+            "search-input",
+        ) as HTMLInputElement | null;
+        const productList = document.getElementById(
+            "product-list",
+        ) as HTMLElement | null;
 
-    if (!searchInput || !productList) {
-        return;
-    }
+        if (!searchInput || !productList) {
+            return;
+        }
 
-    searchInput.addEventListener("input", () => {
-        const searchTerm = searchInput.value.toLowerCase();
-        const products = productList.children;
+        searchInput.addEventListener("input", () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const products = productList.children;
 
-        Array.from(products).forEach((product) => {
-            const productElement = product as HTMLElement;
-            const titleElement = productElement.querySelector("h1") as HTMLElement | null;
+            Array.from(products).forEach((product) => {
+                const productElement = product as HTMLElement;
+                const titleElement = productElement.querySelector(
+                    "h1",
+                ) as HTMLElement | null;
 
-            if (!titleElement) {
-                return;
-            }
+                if (!titleElement) {
+                    return;
+                }
 
-            const title = titleElement.textContent?.toLowerCase();
-            if (title && title.includes(searchTerm)) {
-                productElement.style.display = "block";
-            } else {
-                productElement.style.display = "none";
-            }
+                const title = titleElement.textContent?.toLowerCase();
+                if (title && title.includes(searchTerm)) {
+                    productElement.style.visibility = "visible";
+                    productElement.style.height = "auto"; // Reset height to its content
+                } else {
+                    productElement.style.visibility = "hidden";
+                    productElement.style.height = "0"; // Collapse the card height
+                }
+            });
         });
     });
-});
-
 </script>
