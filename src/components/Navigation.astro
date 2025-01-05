@@ -1,5 +1,4 @@
 ---
-// filepath: /c:/Users/maxsr/OneDrive/Desktop/HABTronics/src/components/Navigation.astro
 import "../layouts/Layout.astro"
 ---
 <div class="navbar">
@@ -84,6 +83,10 @@ import "../layouts/Layout.astro"
             margin-left: auto;
         }
     }
+
+    .menu-open .content {
+        display: none; /* Hide other content */
+    }
 </style>
 
 <script>
@@ -94,6 +97,7 @@ import "../layouts/Layout.astro"
         if (hamburger && navLinks) {
             hamburger.addEventListener("click", () => {
                 navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+                document.body.classList.toggle("menu-open");
             });
         }
     });
