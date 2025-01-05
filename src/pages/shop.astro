@@ -18,9 +18,9 @@ import ProductCard from "../components/ProductCard.astro";
     <div class="products" id="product-list">
         <ProductCard
             title="Tiny4FSK - the ultra-tiny high-altitude tracker"
-            price="52.65"
-            href="https://www.tindie.com/products/hexandflex/300mhz-log-spiral-antenna-with-suction-mounts/"
-            image="https://cloud-6183mdvu4-hack-club-bot.vercel.app/0tiny4fsk-sky.svg"
+            price="94.99"
+            href="https://www.tindie.com/products/habtronics/tiny4fsk/"
+            image="https://cloud-mamrlfrif-hack-club-bot.vercel.app/0img_20241231_123232.jpg"
         />
     </div>
 </Layout>
@@ -81,6 +81,7 @@ import ProductCard from "../components/ProductCard.astro";
         gap: 30px;
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: flex-start;
     }
 </style>
 
@@ -113,11 +114,9 @@ import ProductCard from "../components/ProductCard.astro";
 
                 const title = titleElement.textContent?.toLowerCase();
                 if (title && title.includes(searchTerm)) {
-                    productElement.style.visibility = "visible";
-                    productElement.style.height = "460px"; // Reset height to its content
+                    productElement.style.display = "flex"; // Show matched products
                 } else {
-                    productElement.style.visibility = "hidden";
-                    productElement.style.height = "0"; // Collapse the card height
+                    productElement.style.display = "none"; // Hide unmatched products
                 }
             });
         });
