@@ -4,7 +4,9 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout>
 	<div class="home-welcome">
-		<img src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg" />
+		<img
+			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+		/>
 		<p>
 			Facilitating open access to upper air environments to pioneer
 			education and research opportunities
@@ -12,7 +14,9 @@ import Layout from "../layouts/Layout.astro";
 	</div>
 	<div class="home-banner">
 		<video autoplay muted loop>
-			<source src="https://cloud-q9lrr3iua-hack-club-bot.vercel.app/0habtronics_bannervideo.mp4">
+			<source
+				src="https://cloud-q9lrr3iua-hack-club-bot.vercel.app/0habtronics_bannervideo.mp4"
+			/>
 		</video>
 	</div>
 </Layout>
@@ -20,12 +24,12 @@ import Layout from "../layouts/Layout.astro";
 <style>
 	.home-welcome {
 		display: flex;
-    	flex-direction: column;
-    	align-items: center;
-    	text-align: center;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
 	}
 	.home-welcome p {
-		width: 1000px;
+		width: 75%;
 		font-family: Gugi;
 		font-size: 40px;
 	}
@@ -36,5 +40,29 @@ import Layout from "../layouts/Layout.astro";
 
 	.home-banner video {
 		width: 100%;
+		height: auto;
+	}
+
+	@media only screen and (max-width: 768px)  {
+		.home-welcome img {
+			width: 300px;
+			height: auto;
+		}
+		.home-welcome p {
+			width: 90%;
+			font-size: 25px;
+			text-wrap: wrap;
+		}
+	}
+	@media only screen and (max-width: 400px)  {
+		.home-welcome img {
+			width: 200px;
+			height: auto;
+		}
+		.home-welcome p {
+			width: 90%;
+			font-size: 15px;
+			text-wrap: wrap;
+		}
 	}
 </style>

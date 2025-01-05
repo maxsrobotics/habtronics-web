@@ -15,7 +15,6 @@ import Navigation from "../components/Navigation.astro";
 	<body>
 		<Navigation />
 		<slot />
-		<p style="color:gray; text-align:center; margin-bottom:10px; font-size:20px;">Made with Astro. Hosted on Vercel and <a href="https://github.com/maxsrobotics/habtronics-web" style="text-decoration:underline;">on GitHub.</a></p>
 	</body>
 </html>
 
@@ -28,5 +27,20 @@ import Navigation from "../components/Navigation.astro";
     	margin: 0;
 		margin-top: 60px;
     	padding: 0;
+	}
+	p {
+		color:gray;
+		text-align:center;
+		margin-bottom:10px;
+		font-size:20px;
+	}
+	@media only screen and (max-width: 768px)  {
+		p {
+			font-size: 10px;
+		}
+	@media only screen and (max-width: 400px)  {
+		p {
+			font-size: 5px;
+		}
 	}
 </style>

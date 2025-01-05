@@ -1,4 +1,5 @@
 ---
+// filepath: /c:/Users/maxsr/OneDrive/Desktop/HABTronics/src/components/Navigation.astro
 import "../layouts/Layout.astro"
 ---
 <div class="navbar">
@@ -7,10 +8,13 @@ import "../layouts/Layout.astro"
             <img src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg">
         </a>
     </div>
-    <div class="links">
+    <div class="links" id="nav-links">
         <a href="/">HOME</a>
         <a href="/shop">SHOP</a>
         <a href="/about-us">ABOUT US</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+        &#9776;
     </div>
 </div>
 
@@ -45,4 +49,52 @@ import "../layouts/Layout.astro"
         color: white;
         text-decoration: none;
     }
+
+    .hamburger {
+        display: none;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .links {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 1000;
+        }
+        .links a {
+            padding: 20px;
+            border-bottom: 1px solid white;
+            width: 100%;
+            text-align: center;
+        }
+        .hamburger {
+            display: block;
+            margin-left: auto;
+        }
+    }
 </style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("nav-links");
+
+        if (hamburger && navLinks) {
+            hamburger.addEventListener("click", () => {
+                navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+            });
+        }
+    });
+</script>
