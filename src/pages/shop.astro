@@ -71,7 +71,7 @@ import ProductCard from "../components/ProductCard.astro";
         justify-content: flex-start;
     }
 
-    @media only screen and (max-width: 768px)  {
+    @media only screen and (max-width: 768px) {
         .banner img {
             height: 100px;
             margin-right: 30px;
@@ -99,7 +99,7 @@ import ProductCard from "../components/ProductCard.astro";
             margin-left: 30px;
         }
     }
-    @media only screen and (max-width: 480px)  {
+    @media only screen and (max-width: 500px) {
         .banner {
             flex-direction: column;
         }
@@ -130,6 +130,23 @@ import ProductCard from "../components/ProductCard.astro";
         .category {
             font-size: 20px;
             margin-left: 20px;
+        }
+    }
+
+    @media only screen and (max-width: 950px) {
+        .category {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .products {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 </style>
