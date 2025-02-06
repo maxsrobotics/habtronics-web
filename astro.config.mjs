@@ -3,6 +3,8 @@ import { defineConfig } from 'astro/config';
 
 import node from '@astrojs/node';
 
+import vercel from '@astrojs/vercel';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://www.habtronics.com',
@@ -11,7 +13,5 @@ export default defineConfig({
       enabled: false
     },
 
-  adapter: node({
-    mode: 'standalone'
-  })
+  adapter: vercel()
 });
