@@ -1,0 +1,195 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+interface CartItem {
+  title: string;
+  price: string;
+  priceId: string;
+  quantity: number;
+}
+---
+
+<Layout>
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Cart items will be injected here by JavaScript -->
+      </tbody>
+    </table>
+    <button id="checkout-button">Checkout</button>
+  </div>
+</Layout>
+
+<style>
+  .cart-container {
+    padding: 20px;
+    font-family: 'Gugi', sans-serif;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Add gap between rows */
+    margin-top: 20px;
+  }
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f2f2f2;
+    font-size: 18px;
+  }
+
+  td {
+    font-size: 16px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  tr:hover {
+    background-color: #ddd;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+
+  #checkout-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    float: right;
+
+    font-family: Gugi;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    border-radius: 10px;
+    background: #d9d9d9;
+  }
+
+  #checkout-button:hover {
+    opacity: 50%;
+  }
+
+  .delete-button {
+    cursor: pointer;
+    color: red;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: #d9d9d9;
+    font-family: Gugi;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    border: none;
+  }
+
+  .delete-button:hover {
+    opacity: 50%;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
+    const tbody = document.getElementById("cart-items");
+
+    const combinedItems = cartItems.reduce((acc: any, item: any) => {
+      const existingItem = acc.find((i: any) => i.priceId === item.priceId);
+      if (existingItem) {
+        existingItem.quantity = item.quantity;
+      } else {
+        acc.push(item);
+      }
+      return acc;
+    }, []);
+
+    combinedItems.forEach((item: any) => {
+      const row = document.createElement("tr");
+
+      row.innerHTML = `
+        <td>${item.title}</td>
+        <td>$${item.price}</td>
+        <td><input type="number" value="${item.quantity}" min="1" data-price-id="${item.priceId}" class="quantity-input"></td>
+        <td>$${(item.price * item.quantity).toFixed(2)}</td>
+        <td><button class="delete-button" data-price-id="${item.priceId}">Delete</button></td>
+      `;
+
+      tbody!.appendChild(row);
+    });
+
+    document.querySelectorAll('.quantity-input').forEach(input => {
+      input.addEventListener('change', (event) => {
+        const inputElement = event.target as HTMLInputElement;
+        let newQuantity = parseInt(inputElement.value);
+        if (newQuantity < 1) {
+          newQuantity = 1;
+          inputElement.value = "1";
+        }
+        const priceId = inputElement.getAttribute('data-price-id');
+
+        const item = combinedItems.find((i: any) => i.priceId === priceId);
+        if (item) {
+          item.quantity = newQuantity;
+          inputElement.closest('tr')!.querySelector('td:nth-last-child(2)')!.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
+
+          // Update the quantity in the original cartItems array
+          const originalItem = cartItems.find((i: any) => i.priceId === priceId);
+          if (originalItem) {
+            originalItem.quantity = newQuantity;
+          }
+
+          // Update localStorage with the new quantities
+          localStorage.setItem("cart", JSON.stringify(cartItems));
+        }
+      });
+    });
+
+    document.querySelectorAll('.delete-button').forEach(button => {
+      button.addEventListener('click', (event) => {
+        const buttonElement = event.target as HTMLElement;
+        const priceId = buttonElement.getAttribute('data-price-id');
+
+        // Remove the item from combinedItems and cartItems arrays
+        const itemIndex = combinedItems.findIndex((i: any) => i.priceId === priceId);
+        if (itemIndex > -1) {
+          combinedItems.splice(itemIndex, 1);
+        }
+
+        const originalItemIndex = cartItems.findIndex((i: any) => i.priceId === priceId);
+        if (originalItemIndex > -1) {
+          cartItems.splice(originalItemIndex, 1);
+        }
+
+        // Update localStorage with the new cart items
+        localStorage.setItem("cart", JSON.stringify(cartItems));
+
+        // Remove the row from the table
+        buttonElement.closest('tr')!.remove();
+      });
+    });
+
+    document.getElementById('checkout-button')!.addEventListener('click', () => {
+      window.location.href = "/checkout";
+    });
+  });
+</script>

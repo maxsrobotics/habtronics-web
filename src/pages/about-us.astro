@@ -3,9 +3,88 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	more coming soon!
+	<div class="about-us">
+		<img
+			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+		/>
+		<p>
+			Habtronics is a student-led organization that aims to facilitate open access to upper air environments to pioneer education and research opportunities. We are dedicated to providing high-altitude balloon tracking and recovery services to students and educators around the world. Our mission is to inspire the next generation of scientists, engineers, and explorers by providing hands-on experience in the field of high-altitude ballooning.
+		</p>
+	</div>
+	<div class="team">
+		<h1>Meet the Team</h1>
+		<div class="team-member">
+			<img
+				src="https://maxsrobotics.vercel.app/assets/portrait.jpg"
+			/>
+			<p class="name">
+				Max Kendall
+			</p>
+			<p class="role">
+				Founder & CEO. Max is a middle school student with a passion for engineering, teaching, electonics, and programming.
+			</p>
+		</div>
+		<div class="team-member">
+			<img
+				src="https://images.clubexpress.com/508616/photos/thumbnail/Seth-Kendall_506852630.jpeg"
+			/>
+			<p class="name">
+				Seth Kendall
+			</p>
+			<p class="role">
+				Cofounder of HABtronics. Seth is Max's dad who shares his love for STEM education and learning.
+			</p>
+		</div>
+	</div>
 </Layout>
 
 <style>
+	.about-us {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
 
+	.about-us p {
+		width: 75%;
+		font-family: Gugi;
+		font-size: 25px;
+	}
+
+	.about-us img {
+		width: 500px;
+		height: auto;
+	}
+
+	.team {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+	.team h1 {
+		font-family: Gugi;
+		font-size: 40px;
+	}
+	.team-member {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+	.team-member img {
+		width: 200px;
+		height: auto;
+	}
+	.role {
+		font-family: Gugi;
+		width: 75%;
+		font-size: 20px;
+	}
+
+	.name {
+		font-family: Gugi;
+		font-size: 30px;
+	}
 </style>

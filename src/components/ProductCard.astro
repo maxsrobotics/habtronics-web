@@ -5,22 +5,43 @@ interface Props {
     href: string;
     image: string;
     position?: string;
+    priceId: string;
 }
 
 // Destructure the props
-const { title, price, href, image, position } = Astro.props;
+const { title, price, href, image, position, priceId } = Astro.props;
 ---
 
 <div class="product-card">
-    <img src={image} style=`object-position: ${position};` />
+    <img src={image} style={`object-position: ${position};`} />
     <h1>{title}</h1>
     <div class="price-banner">
         <p>${price}</p>
-        <form action={href} target="_blank">
-            <input type="submit" value="View Page" onclick="" />
-        </form>
+        <button id="add-to-cart">Add to Cart</button>
     </div>
+    <div id="tag-data" data-title=`${title}` data-price=`${price}` data-price-id=`${priceId}`></div>
 </div>
+
+<script>
+    const addToCartButton = document.getElementById("add-to-cart");
+    const dataDiv = document.getElementById("tag-data");
+    addToCartButton!.addEventListener("click", () => addToCart(dataDiv!.getAttribute("data-title")!, dataDiv!.getAttribute("data-price")!, dataDiv!.getAttribute("data-price-id")!));
+    
+    function addToCart(title: string, price: string, priceId: string) {
+        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const productIndex = cart.findIndex((item: any) => item.priceId === priceId);
+        
+        if (productIndex > -1) {
+            cart[productIndex].quantity += 1;
+        } else {
+            const product = { title, price, priceId, quantity: 1 };
+            cart.push(product);
+        }
+        
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${title} has been added to your cart!`);
+    }
+</script>
 
 <style>
     .product-card {
@@ -64,12 +85,12 @@ const { title, price, href, image, position } = Astro.props;
         font-weight: 400;
         line-height: normal;
     }
-    .price-banner input {
+    .price-banner button {
         width: 100px;
         height: 36px;
 
         font-family: Gugi;
-        font-size: 16px;
+        font-size: 13px;
         font-style: normal;
         font-weight: 400;
         line-height: normal;
@@ -79,7 +100,7 @@ const { title, price, href, image, position } = Astro.props;
 
         cursor: pointer;
     }
-    .price-banner input:hover {
+    .price-banner button:hover {
         opacity: 50%;
     }
 </style>

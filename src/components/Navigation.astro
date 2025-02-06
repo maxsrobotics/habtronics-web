@@ -12,6 +12,11 @@ import "../layouts/Layout.astro"
         <a href="/shop">SHOP</a>
         <a href="/about-us">ABOUT US</a>
     </div>
+    <div class="cart">
+        <a href="/cart">
+            <img src="https://cloud-5kujaastv-hack-club-bot.vercel.app/0bag.svg" alt="Cart" height="45px">
+        </a>
+    </div>
     <div class="hamburger" id="hamburger">
         &#9776;
     </div>
@@ -47,6 +52,21 @@ import "../layouts/Layout.astro"
         font-size: 25px;
         color: white;
         text-decoration: none;
+    }
+    .links a:hover {
+        opacity: 50%;
+    }
+
+    .cart {
+        margin-right: 20px;
+        align-self: center;
+    }
+    .cart img {
+        height: 30px;
+        filter: invert();
+    }
+    .cart:hover {
+        opacity: 50%;
     }
 
     .hamburger {
@@ -85,7 +105,7 @@ import "../layouts/Layout.astro"
     }
 
     .menu-open .content {
-        display: none; /* Hide other content */
+        display: none;
     }
 </style>
 
