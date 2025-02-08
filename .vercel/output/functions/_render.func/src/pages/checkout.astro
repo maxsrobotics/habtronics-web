@@ -1,0 +1,89 @@
+---
+export const prerender = false
+import Stripe from 'stripe';
+
+const PUBLIC_STRIPE_KEY = import.meta.env.PUBLIC_STRIPE_KEY;
+const stripe = new Stripe(import.meta.env.STRIPE_KEY);
+const { origin } = Astro.url;
+
+// Create a placeholder for line items
+let lineItems = [];
+---
+
+<div id="checkout" data-stripe-key={PUBLIC_STRIPE_KEY}></div>
+
+<script>
+  import { loadStripe } from '@stripe/stripe-js';
+
+  // Fetch line items from localStorage
+  function getLineItemsFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('cart') || '[]');
+  }
+
+  const lineItems = getLineItemsFromLocalStorage();
+
+  // Redirect to shop if no line items
+  if (lineItems.length === 0) {
+    window.location.href = "/shop";
+  }
+
+  // Log the line items to verify they are being fetched correctly
+  console.log('Line items from localStorage:', lineItems);
+
+  // Fetch session from the server
+  async function createCheckoutSession() {
+    try {
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ lineItems }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Failed to create checkout session:', errorText);
+        throw new Error('Failed to create checkout session');
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching checkout session:', error);
+      throw error;
+    }
+  }
+
+  async function initializeCheckout() {
+    try {
+      const checkoutDiv = document.querySelector('#checkout');
+      if (!checkoutDiv) {
+        throw new Error('Checkout div not found');
+      }
+
+      const stripe = await loadStripe(checkoutDiv.getAttribute('data-stripe-key')!);
+      if (!stripe) {
+        throw new Error('Failed to load Stripe');
+      }
+
+      const session = await createCheckoutSession();
+
+      // Log the session to verify the client secret
+      console.log('Checkout session:', session);
+
+      // Set client secret
+      checkoutDiv.setAttribute('data-client-secret', session.client_secret);
+
+      // Initialize embedded checkout
+      const checkout = await stripe.initEmbeddedCheckout({
+        clientSecret: session.client_secret,
+      });
+
+      checkout.mount('#checkout');
+    } catch (error) {
+      console.error('Error during checkout initialization:', error);
+    }
+  }
+
+  initializeCheckout();
+</script>

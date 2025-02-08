@@ -24,7 +24,7 @@ export const POST: APIRoute = async ({ request }) => {
       return_url: `${request.headers.get('origin')}/return?session_id={CHECKOUT_SESSION_ID}`,
       automatic_tax: { enabled: true },
       shipping_address_collection: {
-        allowed_countries: ['US', 'CA'],
+        allowed_countries: ['US'],
       },
       allow_promotion_codes: true,
     });
