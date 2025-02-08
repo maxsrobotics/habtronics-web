@@ -26,6 +26,7 @@ export const POST: APIRoute = async ({ request }) => {
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
+      allow_promotion_codes: true,
     });
 
     console.log('Created session:', session);
