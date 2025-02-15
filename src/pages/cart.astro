@@ -10,103 +10,25 @@ interface CartItem {
 ---
 
 <Layout>
-  <div class="cart-container">
-    <h1>Your Cart</h1>
-    <table>
+  <div class="cart-container p-5 font-gugi">
+    <h1 class="text-4xl mb-5">Your Cart</h1>
+    <table class="w-full border-separate border-spacing-y-2 mt-5">
       <thead>
         <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total</th>
-          <th>Action</th>
+          <th class="border p-3 text-left bg-gray-200 text-lg">Product</th>
+          <th class="border p-3 text-left bg-gray-200 text-lg">Price</th>
+          <th class="border p-3 text-left bg-gray-200 text-lg">Quantity</th>
+          <th class="border p-3 text-left bg-gray-200 text-lg">Total</th>
+          <th class="border p-3 text-left bg-gray-200 text-lg">Action</th>
         </tr>
       </thead>
       <tbody id="cart-items">
         <!-- Cart items will be injected here by JavaScript -->
       </tbody>
     </table>
-    <button id="checkout-button">Checkout</button>
+    <button id="checkout-button" class="mt-5 px-5 py-2 cursor-pointer float-right font-gugi text-lg rounded-lg bg-gray-300 hover:opacity-50">Checkout</button>
   </div>
 </Layout>
-
-<style>
-  .cart-container {
-    padding: 20px;
-    font-family: 'Gugi', sans-serif;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0 10px;
-    margin-top: 20px;
-  }
-
-  th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-  }
-
-  th {
-    background-color: #f2f2f2;
-    font-size: 18px;
-  }
-
-  td {
-    font-size: 16px;
-  }
-
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  tr:hover {
-    background-color: #ddd;
-  }
-
-  h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-
-  #checkout-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    cursor: pointer;
-    float: right;
-
-    font-family: Gugi;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    border-radius: 10px;
-    background: #d9d9d9;
-  }
-
-  #checkout-button:hover {
-    opacity: 50%;
-  }
-
-  .delete-button {
-    cursor: pointer;
-    color: red;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 10px;
-    background: #d9d9d9;
-    font-family: Gugi;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    border: none;
-  }
-
-  .delete-button:hover {
-    opacity: 50%;
-  }
-</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -127,11 +49,11 @@ interface CartItem {
       const row = document.createElement("tr");
 
       row.innerHTML = `
-        <td>${item.title}</td>
-        <td>$${item.price}</td>
-        <td><input type="number" value="${item.quantity}" min="1" data-price-id="${item.priceId}" class="quantity-input"></td>
-        <td>$${(item.price * item.quantity).toFixed(2)}</td>
-        <td><button class="delete-button" data-price-id="${item.priceId}">Delete</button></td>
+        <td class="border p-3">${item.title}</td>
+        <td class="border p-3">$${item.price}</td>
+        <td class="border p-3"><input type="number" value="${item.quantity}" min="1" data-price-id="${item.priceId}" class="quantity-input border p-1"></td>
+        <td class="border p-3">$${(item.price * item.quantity).toFixed(2)}</td>
+        <td class="border p-3"><button class="delete-button cursor-pointer text-red-500 text-lg px-5 py-2 rounded-lg bg-gray-300 hover:opacity-50" data-price-id="${item.priceId}">Delete</button></td>
       `;
 
       tbody!.appendChild(row);

@@ -1,122 +1,40 @@
 ---
 import "../layouts/Layout.astro"
 ---
-<div class="navbar">
+<div class="navbar fixed top-0 w-full h-15 bg-black flex items-center z-[10000]">
     <div class="logo">
         <a href="/">
-            <img src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg">
+            <img src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg" class="h-15 invert">
         </a>
     </div>
-    <div class="links" id="nav-links">
-        <a href="/">HOME</a>
-        <a href="/shop">SHOP</a>
-        <a href="/about-us">ABOUT US</a>
+    <div class="links ml-auto mr-18 gap-18 items-center sm:hidden md:flex" id="nav-links">
+        <a href="/" class="font-gugi text-2xl text-white no-underline hover-50">HOME</a>
+        <a href="/shop" class="font-gugi text-2xl text-white no-underline hover-50">SHOP</a>
+        <a href="/about-us" class="font-gugi text-2xl text-white no-underline hover-50">ABOUT US</a>
     </div>
-    <div class="cart">
+    <div class="cart relative mr-5 items-center">
         <a href="/cart">
-            <img src="https://cloud-5kujaastv-hack-club-bot.vercel.app/0bag.svg" alt="Cart" height="45px">
+            <img src="https://cloud-5kujaastv-hack-club-bot.vercel.app/0bag.svg" alt="Cart" class="h-7 invert hover-50">
         </a>
     </div>
-    <div class="hamburger" id="hamburger">
+    <div class="hamburger text-3xl text-white cursor-pointer mr-5 md:hidden" id="hamburger">
         &#9776;
     </div>
 </div>
-
-<style>
-    .navbar {
-        display: flex;
-        position: fixed;
-        top: 0px;
-        width: 100%;
-        height: 60px;
-        background-color: black;
-        align-items: center;
-        flex-direction: row;
-    }
-
-    .logo img {
-        height: 60px;
-        filter: invert();
-    }
-
-    .links {
-        display: flex;
-        justify-self: flex-end;
-        gap: 75px;
-        margin-left: auto;
-        margin-right: 75px;
-        align-self: center;
-    }
-    .links a {
-        font-family: 'Gugi';
-        font-size: 25px;
-        color: white;
-        text-decoration: none;
-    }
-    .links a:hover {
-        opacity: 50%;
-    }
-
-    .cart {
-        margin-right: 20px;
-        align-self: center;
-    }
-    .cart img {
-        height: 30px;
-        filter: invert();
-    }
-    .cart:hover {
-        opacity: 50%;
-    }
-
-    .hamburger {
-        display: none;
-        font-size: 30px;
-        color: white;
-        cursor: pointer;
-        margin-right: 20px;
-    }
-
-    @media (max-width: 768px) {
-        .links {
-            display: none;
-            flex-direction: column;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            z-index: 1000;
-        }
-        .links a {
-            padding: 20px;
-            border-bottom: 1px solid white;
-            width: 100%;
-            text-align: center;
-        }
-        .hamburger {
-            display: block;
-            margin-left: auto;
-        }
-    }
-
-    .menu-open .content {
-        display: none;
-    }
-</style>
+<div class="mobile-menu hidden flex-col items-center bg-black text-white w-full" id="mobile-menu">
+    <a href="/" class="font-gugi text-2xl text-white no-underline hover-50 py-2">HOME</a>
+    <a href="/shop" class="font-gugi text-2xl text-white no-underline hover-50 py-2">SHOP</a>
+    <a href="/about-us" class="font-gugi text-2xl text-white no-underline hover-50 py-2">ABOUT US</a>
+</div>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const hamburger = document.getElementById("hamburger");
-        const navLinks = document.getElementById("nav-links");
+        const mobileMenu = document.getElementById("mobile-menu");
 
-        if (hamburger && navLinks) {
+        if (hamburger && mobileMenu) {
             hamburger.addEventListener("click", () => {
-                navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex";
+                mobileMenu.classList.toggle("hidden");
                 document.body.classList.toggle("menu-open");
             });
         }

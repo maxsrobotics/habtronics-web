@@ -2,7 +2,7 @@
 ---
 
 # PRIVACY POLICY
-Last updated February 06, 2025
+Last updated February 08, 2025
 
 This Privacy Notice for Maxwell Kendall (doing business as Habtronics) ("we," "us," or "our"), describes how and why we might access, collect, store, use, and/or share ("process") your personal information when you use our services ("Services"), including when you:
 - Visit our website at [http://www.habtronics.com](http://www.habtronics.com), or any website of ours that links to this Privacy Notice

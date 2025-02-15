@@ -1,192 +1,82 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
+
+let products = [];
+const { origin } = Astro.url;
+
+try {
+    const response = await fetch(`${origin}/api/retrieve_product_meta`);
+    if (response.ok) {
+        products = await response.json();
+    } else {
+        console.error('Failed to fetch product metadata:', await response.text());
+    }
+} catch (error) {
+    console.error('Error fetching product metadata:', error);
+} 
 ---
 
 <Layout>
-    <div class="banner">
-        <img
-            src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
-        />
-        <form role="search" id="search-form" onsubmit="return false;">
-            <input type="text" placeholder="Search" id="search-input" />
-        </form>
+    <div class="banner flex flex-row items-center justify-center">
+            <img
+                    src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+                    class="h-32 mr-16 md:h-24 md:mr-8 sm:h-16 sm:mr-0 sm:mb-2"
+            />
+            <form role="search" id="search-form" onsubmit="return false;" class="flex items-center">
+                    <input type="text" placeholder="Search" id="search-input" class="h-11 w-91 border-3 border-black font-gugi text-2xl placeholder-gugi placeholder-text-2xl md:h-9 md:w-64 md:text-xl md:placeholder-text-l sm:h-6 sm:w-50 sm:text-base sm:placeholder-text-base pl-2" />
+            </form>
     </div>
-    <div class="category">
-        <p>Electronics</p>
-    </div>
-    <div class="products" id="product-list">
-        <ProductCard
-            title="Tiny4FSK - the ultra-tiny high-altitude tracker"
-            price="94.99"
-            href="https://www.tindie.com/products/habtronics/tiny4fsk/"
-            image="https://cloud-mamrlfrif-hack-club-bot.vercel.app/0img_20241231_123232.jpg"
-            priceId = "price_1QnkirJqrJ7WntZuNFWD4VlD"
-        />
+        <div class="category font-gugi text-4xl md:text-3xl sm:text-xl self-center flex justify-center mb-5">
+                <p>Electronics</p>
+        </div>
+    <div id="product-list" class="products flex ml-11 gap-8 flex-row flex-wrap justify-start sm:justify-center md:ml-0">
+            {products.map((product: any) => (
+                    <ProductCard
+                            title={product.metadata.title}
+                            short={product.metadata.short}
+                            price={product.price}
+                            image={product.image}
+                            priceId={product.price_id}
+                    />
+            ))}
     </div>
 </Layout>
 
-<style>
-    .banner {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .banner img {
-        height: 122px;
-        margin-right: 70px;
-    }
-
-    .banner form {
-        display: flex;
-        align-items: center;
-    }
-
-    .banner input[type="text"] {
-        height: 45px;
-        width: 365px;
-        border: solid black 3px;
-        font-family: "Gugi";
-        font-size: 30px;
-    }
-
-    .banner input::placeholder {
-        font-family: "Gugi";
-        font-size: 30px;
-    }
-
-    .category {
-        font-family: "Gugi";
-        font-size: 40px;
-        margin-left: 43px;
-    }
-
-    .products {
-        display: flex;
-        margin-left: 43px;
-        gap: 30px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-    }
-
-    @media only screen and (max-width: 768px) {
-        .banner img {
-            height: 100px;
-            margin-right: 30px;
-        }
-
-        .banner input[type="text"] {
-            height: 35px;
-            width: 250px;
-            font-size: 20px;
-        }
-
-        .banner input::placeholder {
-            font-size: 20px;
-        }
-
-        .banner input[type="submit"] {
-            width: 40px;
-            height: 35px;
-            font-size: 15px;
-            background-size: 30px;
-        }
-
-        .category {
-            font-size: 30px;
-            margin-left: 30px;
-        }
-    }
-    @media only screen and (max-width: 500px) {
-        .banner {
-            flex-direction: column;
-        }
-
-        .banner img {
-            height: 70px;
-            margin-right: 0;
-            margin-bottom: 10px;
-        }
-
-        .banner input[type="text"] {
-            height: 25px;
-            width: 200px;
-            font-size: 15px;
-        }
-
-        .banner input::placeholder {
-            font-size: 15px;
-        }
-
-        .banner input[type="submit"] {
-            width: 30px;
-            height: 25px;
-            font-size: 10px;
-            background-size: 20px;
-        }
-
-        .category {
-            font-size: 20px;
-            margin-left: 20px;
-        }
-    }
-
-    @media only screen and (max-width: 950px) {
-        .category {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .products {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    }
-</style>
-
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const searchInput = document.getElementById(
-            "search-input",
-        ) as HTMLInputElement | null;
-        const productList = document.getElementById(
-            "product-list",
-        ) as HTMLElement | null;
-
-        if (!searchInput || !productList) {
-            return;
-        }
-
-        searchInput.addEventListener("input", () => {
-            const searchTerm = searchInput.value.toLowerCase();
-            const products = productList.children;
-
-            Array.from(products).forEach((product) => {
-                const productElement = product as HTMLElement;
-                const titleElement = productElement.querySelector(
-                    "h1",
+        document.addEventListener("DOMContentLoaded", () => {
+                const searchInput = document.getElementById(
+                        "search-input",
+                ) as HTMLInputElement | null;
+                const productList = document.getElementById(
+                        "product-list",
                 ) as HTMLElement | null;
 
-                if (!titleElement) {
-                    return;
+                if (!searchInput || !productList) {
+                        return;
                 }
 
-                const title = titleElement.textContent?.toLowerCase();
-                if (title && title.includes(searchTerm)) {
-                    productElement.style.display = "flex"; // Show matched products
-                } else {
-                    productElement.style.display = "none"; // Hide unmatched products
-                }
-            });
+                searchInput.addEventListener("input", () => {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        const products = productList.children;
+
+                        Array.from(products).forEach((product) => {
+                                const productElement = product as HTMLElement;
+                                const titleElement = productElement.querySelector(
+                                        "h1",
+                                ) as HTMLElement | null;
+
+                                if (!titleElement) {
+                                        return;
+                                }
+
+                                const title = titleElement.textContent?.toLowerCase();
+                                if (title && title.includes(searchTerm)) {
+                                        productElement.style.display = "flex"; // Show matched products
+                                } else {
+                                        productElement.style.display = "none"; // Hide unmatched products
+                                }
+                        });
+                });
         });
-    });
 </script>
-

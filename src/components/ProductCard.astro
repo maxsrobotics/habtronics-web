@@ -1,106 +1,33 @@
 ---
+// filepath: /c:/Users/maxsr/OneDrive/Desktop/HABTronics/src/components/ProductCard.astro
 interface Props {
     title: string;
+    short: string;
     price: string;
-    href: string;
     image: string;
     position?: string;
     priceId: string;
 }
 
-// Destructure the props
-const { title, price, href, image, position, priceId } = Astro.props;
+const { title, short, price, image, position, priceId } = Astro.props;
+const { origin } = Astro.url;
 ---
-
-<div class="product-card">
-    <img src={image} style={`object-position: ${position};`} />
-    <h1>{title}</h1>
-    <div class="price-banner">
-        <p>${price}</p>
-        <button id="add-to-cart">Add to Cart</button>
+<div class="product-card flex flex-col items-center w-80 h-115 border-4 border-black rounded-3xl relative">
+    <img src={image} class="object-cover w-65 h-70 rounded-lg mt-7" style={`object-position: ${position};`} />
+    <h1 class="font-gugi text-lg font-normal leading-normal w-65 mt-3">{title}</h1>
+    <div class="price-banner flex flex-row items-center gap-16 absolute bottom-3">
+        <p class="font-gugi text-2xl font-normal leading-normal">${price}</p>
+        <button data-short={short} id="view-page" class="view-page w-25 h-9 font-gugi text-xs font-normal leading-normal rounded-lg bg-gray-200 cursor-pointer border-black border-3 hover-50">View Page</button>
     </div>
-    <div id="tag-data" data-title=`${title}` data-price=`${price}` data-price-id=`${priceId}`></div>
 </div>
 
 <script>
-    const addToCartButton = document.getElementById("add-to-cart");
-    const dataDiv = document.getElementById("tag-data");
-    addToCartButton!.addEventListener("click", () => addToCart(dataDiv!.getAttribute("data-title")!, dataDiv!.getAttribute("data-price")!, dataDiv!.getAttribute("data-price-id")!));
-    
-    function addToCart(title: string, price: string, priceId: string) {
-        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-        const productIndex = cart.findIndex((item: any) => item.priceId === priceId);
-        
-        if (productIndex > -1) {
-            cart[productIndex].quantity += 1;
-        } else {
-            const product = { title, price, priceId, quantity: 1 };
-            cart.push(product);
-        }
-        
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${title} has been added to your cart!`);
-    }
+    const buttons = document.querySelectorAll('button.view-page');
+
+    // Handle clicks on each button.
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        window.location.href = `${origin}/products/${button!.getAttribute("data-short")}`;
+      });
+    });
 </script>
-
-<style>
-    .product-card {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 320px;
-        height: 460px;
-        border: 4px black solid;
-        border-radius: 30px;
-    }
-
-    .product-card img {
-        display: flex;
-        object-fit: cover;
-        width: 260px;
-        height: 280px;
-        border-radius: 10px;
-        margin-top: 30px;
-        justify-self: center;
-    }
-    .product-card h1 {
-        font-family: Gugi;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        width: 260px;
-    }
-
-    .price-banner {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 70px;
-    }
-    .price-banner p {
-        font-family: Gugi;
-        font-size: 30px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-    }
-    .price-banner button {
-        width: 100px;
-        height: 36px;
-
-        font-family: Gugi;
-        font-size: 13px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-
-        border-radius: 10px;
-        background: #d9d9d9;
-
-        cursor: pointer;
-    }
-    .price-banner button:hover {
-        opacity: 50%;
-    }
-</style>

@@ -21,23 +21,10 @@ const { name, email } = session.customer_details!
 ---
 
 <Layout>
-	<h1>Thanks for your purchase, {name}!</h1>
-    <p>We've sent a receipt to {email}.</p>
+	<h1 class="font-gugi text-3xl text-center">Thanks for your purchase, {name}!</h1>
+    <p class="font-gugi text-base text-center">We've sent a receipt to {email}.</p>
 </Layout>
 
 <script>
     localStorage.removeItem("cart")
 </script>
-
-<style>
-    h1 {
-        font-family: 'Gugi', sans-serif;
-        font-size: 40px;
-        text-align: center;
-    }
-    p {
-        font-family: 'Gugi', sans-serif;
-        font-size: 20px;
-        text-align: center;
-    }
-</style>

@@ -3,91 +3,40 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<div class="about-us">
+	<div class="flex flex-col items-center text-center">
 		<img
 			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+			class="w-96 h-auto"
 		/>
-		<p>
+		<p class="w-3/4 font-inter text-2xl">
 			Habtronics is a student-led organization that aims to facilitate open access to upper air environments to pioneer education and research opportunities. We are dedicated to providing high-altitude balloon tracking and recovery services to students and educators around the world. Our mission is to inspire the next generation of scientists, engineers, and explorers by providing hands-on experience in the field of high-altitude ballooning.
 		</p>
 	</div>
-	<div class="team">
-		<h1>Meet the Team</h1>
-		<div class="team-member">
+	<div class="team flex flex-col items-center text-center">
+		<h1 class="font-gugi text-4xl mt-10">Meet the Team</h1>
+		<div class="flex flex-col items-center text-center mt-5">
 			<img
 				src="https://maxsrobotics.vercel.app/assets/portrait.jpg"
+				class="w-48 h-auto"
 			/>
-			<p class="name">
+			<p class="font-gugi text-3xl mb-0 mt-3">
 				Max Kendall
 			</p>
-			<p class="role">
+			<p class="font-gugi w-1/2 text-xl mt-2 mb-14">
 				Founder & CEO. Max is a middle school student with a passion for engineering, teaching, electonics, and programming.
 			</p>
 		</div>
-		<div class="team-member">
+		<div class="flex flex-col items-center text-center">
 			<img
-				src="https://cdn.discordapp.com/attachments/728309227617255444/1337207360544051221/Seth_portrait_habtronics.png?ex=67a69ae6&is=67a54966&hm=261ac3fe65e13411cfa813050be26d11baae8d061b174bab474e8efa5b8b1d03&"
+				src="https://media.discordapp.net/attachments/728309227617255444/1337207360544051221/Seth_portrait_habtronics.png?ex=67a9e6a6&is=67a89526&hm=4fe794a97280ee781f830dcf2d8865dc8174a32fb82f4c20bc4156e39feb58fc&=&format=webp&quality=lossless&width=426&height=640"
+				class="w-48 h-auto"
 			/>
-			<p class="name">
+			<p class="font-gugi text-3xl mb-0 mt-3">
 				Seth Kendall
 			</p>
-			<p class="role">
+			<p class="font-gugi w-1/2 text-xl mt-2 mb-14">
 				Cofounder of Habtronics. Seth is Max's dad who shares his love for STEM education and learning.
 			</p>
 		</div>
 	</div>
 </Layout>
-
-<style>
-	.about-us {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	.about-us p {
-		width: 75%;
-		font-family: Gugi;
-		font-size: 25px;
-	}
-
-	.about-us img {
-		width: 500px;
-		height: auto;
-	}
-
-	.team {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-	.team h1 {
-		font-family: Gugi;
-		font-size: 40px;
-	}
-	.team-member {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-	.team-member img {
-		width: 200px;
-		height: auto;
-	}
-	.role {
-		font-family: Gugi;
-		width: 50%;
-		font-size: 20px;
-		margin-top: 10px;
-		margin-bottom: 55px;
-	}
-
-	.name {
-		font-family: Gugi;
-		font-size: 30px;
-		margin-bottom: 0px;
-	}
-</style>

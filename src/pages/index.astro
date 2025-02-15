@@ -3,68 +3,21 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<div class="home-welcome">
+	<div class="flex flex-col items-center text-center">
 		<img
 			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+			class="w-70 md:w-80 lg:w-100"
 		/>
-		<p>
+		<p class="w-11/12 md:w-3/4 font-gugi text-lg md:text-2xl lg:text-4xl p-10">
 			Facilitating open access to upper air environments to pioneer
 			education and research opportunities
 		</p>
 	</div>
-	<div class="home-banner">
-		<video autoplay muted loop>
+	<div class="relative z-0">
+		<video autoplay muted loop class="w-full h-auto">
 			<source
 				src="https://cloud-q9lrr3iua-hack-club-bot.vercel.app/0habtronics_bannervideo.mp4"
 			/>
 		</video>
 	</div>
 </Layout>
-
-<style>
-	.home-welcome {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-	.home-welcome p {
-		width: 75%;
-		font-family: Gugi;
-		font-size: 40px;
-	}
-	.home-welcome img {
-		width: 500px;
-		height: auto;
-	}
-
-	.home-banner video {
-		width: 100%;
-		height: auto;
-		z-index: -1;
-		position: relative;
-	}
-
-	@media only screen and (max-width: 768px)  {
-		.home-welcome img {
-			width: 300px;
-			height: auto;
-		}
-		.home-welcome p {
-			width: 90%;
-			font-size: 25px;
-			text-wrap: wrap;
-		}
-	}
-	@media only screen and (max-width: 400px)  {
-		.home-welcome img {
-			width: 200px;
-			height: auto;
-		}
-		.home-welcome p {
-			width: 90%;
-			font-size: 15px;
-			text-wrap: wrap;
-		}
-	}
-</style>
