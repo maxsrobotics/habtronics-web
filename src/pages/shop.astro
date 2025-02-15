@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import ProductCard from "../components/ProductCard.astro";
 
+export const prerender = false;
+
 let products = [];
 const { origin } = Astro.url;
 

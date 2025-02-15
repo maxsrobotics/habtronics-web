@@ -2,6 +2,8 @@
 import Layout from "../../layouts/Layout.astro";
 const productDescriptions = import.meta.glob('../../content/*.md', { eager: true });
 
+export const prerender = false;
+
 export const response: any = await fetch('http://localhost:4321/api/retrieve_product_meta');
 export const products = await response.json();
 
