@@ -1,34 +1,64 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const productDescriptions = import.meta.glob('../../content/*.md', { eager: true });
+const productDescriptions = import.meta.glob("../../content/*.md", {
+  eager: true,
+});
 
 export const prerender = false;
 
-export const response: any = await fetch('http://habtronics.com/api/retrieve_product_meta');
+export const response: any = await fetch(
+  "http://habtronics.com/api/retrieve_product_meta",
+);
 export const products = await response.json();
 
 export async function getStaticPaths() {
   return products.map((product: any) => ({
-    params: { product: product.metadata.short }
+    params: { product: product.metadata.short },
   }));
 }
 
 const { product } = Astro.params;
 const productData = products.find((p: any) => p.metadata.short === product);
-const productDesc = Object.values(productDescriptions).find((p: any) => p.frontmatter.slug === product) as any;
+const stock = Number(productData?.metadata?.stock);
+console.log("Stock as number:", stock);
+const productDesc = Object.values(productDescriptions).find(
+  (p: any) => p.frontmatter.slug === product,
+) as any;
 ---
 
 <Layout>
-  <div id="product-page" class="-mt-20 grid grid-cols-[40%_60%] w-full h-full min-h-screen">
-    <div id="showcase-section" class="bg-[#1B0C35] min-h-full flex items-center flex-col">
+  <div
+    id="product-page"
+    class="-mt-20 grid grid-cols-[40%_60%] w-full h-full min-h-screen"
+  >
+    <div
+      id="showcase-section"
+      class="bg-[#1B0C35] min-h-full flex items-center flex-col"
+    >
       <div id="content" class="sticky top-0 flex flex-col items-center">
         <div class="mt-[80px] mb-5 self-start -ml-20">
-          <a href="/shop" class="text-white font-gugi text-2xl hover-50">&lt; Back to Shop</a>
+          <a href="/shop" class="text-white font-gugi text-2xl hover-50"
+            >&lt; Back to Shop</a
+          >
         </div>
-        <img src={productData.image} class="w-[400px] object-cover rounded-2xl" />
+        <img
+          src={productData.image}
+          class="w-[400px] object-cover rounded-2xl"
+        />
         <p class="mt-5 text-white font-gugi text-3xl">{productData.name}</p>
         <div class="flex flex-row items-center gap-10 mt-10">
-          <button id="add-to-cart" class="rounded-4xl text-black font-gugi text-2xl bg-white w-50 h-15 cursor-pointer hover-50">Add to Cart</button>
+          <button
+            id="add-to-cart"
+            class:list={[
+              "font-gugi text-2xl w-50 h-15 rounded-4xl",
+              stock === 0
+                ? "bg-gray-500 text-black cursor-not-allowed"
+                : "bg-white text-black hover-50 cursor-pointer",
+            ]}
+            disabled={stock === 0}
+          >
+            {stock === 0 ? "Out of Stock" : "Add to Cart"}
+          </button>
           <p class="font-gugi text-3xl text-white">${productData.price}</p>
         </div>
       </div>
@@ -37,29 +67,46 @@ const productDesc = Object.values(productDescriptions).find((p: any) => p.frontm
       <div class="mt-[100px] font-inter text-xl">
         <productDesc.Content />
       </div>
-    </div>  
-  <div id="tag-data" data-title={productData.name} data-price={productData.price} data-price-id={productData.price_id}></div>
-</Layout>
+    </div>
+    <div
+      id="tag-data"
+      data-title={productData.name}
+      data-price={productData.price}
+      data-price-id={productData.price_id}
+    >
+    </div>
+  </div>
 
-<script>
+  <script>
     const addToCartButton = document.getElementById("add-to-cart");
     const dataDiv = document.getElementById("tag-data");
-    addToCartButton!.addEventListener("click", () => addToCart(dataDiv!.getAttribute("data-title")!, dataDiv!.getAttribute("data-price")!, dataDiv!.getAttribute("data-price-id")!));
-    
-    function addToCart(title: any, price: any, priceId: any) {
-        const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-        const productIndex = cart.findIndex((item: { priceId: any }) => item.priceId === priceId);
-        
-        if (productIndex > -1) {
-            cart[productIndex].quantity += 1;
-        } else {
-            const product = { title, price, priceId, quantity: 1 };
-            cart.push(product);
-        }
-        
-        localStorage.setItem("cart", JSON.stringify(cart));
-        alert(`${title} has been added to your cart!`);
-    }
-</script>
 
-<!--  -->
+    if (!addToCartButton?.hasAttribute("disabled")) {
+      addToCartButton?.addEventListener("click", () =>
+        addToCart(
+          dataDiv!.getAttribute("data-title")!,
+          dataDiv!.getAttribute("data-price")!,
+          dataDiv!.getAttribute("data-price-id")!,
+        ),
+      );
+    }
+    function addToCart(title: any, price: any, priceId: any) {
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const productIndex = cart.findIndex(
+        (item: { priceId: any }) => item.priceId === priceId,
+      );
+
+      if (productIndex > -1) {
+        cart[productIndex].quantity += 1;
+      } else {
+        const product = { title, price, priceId, quantity: 1 };
+        cart.push(product);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${title} has been added to your cart!`);
+    }
+  </script>
+
+  <!--  --></Layout
+>
