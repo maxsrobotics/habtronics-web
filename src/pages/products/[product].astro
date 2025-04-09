@@ -37,7 +37,7 @@ const productDesc = Object.values(productDescriptions).find(
     >
       <div id="content" class="sticky top-0 flex flex-col items-center">
         <div class="mt-[80px] mb-5 self-start -ml-20">
-          <a href="/shop" class="text-white font-gugi text-2xl hover-50"
+          <a href="/shop" class="text-white font-sora text-2xl hover-50"
             >&lt; Back to Shop</a
           >
         </div>
@@ -45,12 +45,12 @@ const productDesc = Object.values(productDescriptions).find(
           src={productData.image}
           class="w-[400px] object-cover rounded-2xl"
         />
-        <p class="mt-5 text-white font-gugi text-3xl">{productData.name}</p>
+        <p class="mt-5 text-white font-sora text-3xl">{productData.name}</p>
         <div class="flex flex-row items-center gap-10 mt-10">
           <button
             id="add-to-cart"
             class:list={[
-              "font-gugi text-2xl w-50 h-15 rounded-4xl",
+              "font-sora text-2xl w-50 h-15 rounded-4xl",
               stock === 0
                 ? "bg-gray-500 text-black cursor-not-allowed"
                 : "bg-white text-black hover-50 cursor-pointer",
@@ -59,7 +59,7 @@ const productDesc = Object.values(productDescriptions).find(
           >
             {stock === 0 ? "Out of Stock" : "Add to Cart"}
           </button>
-          <p class="font-gugi text-3xl text-white">${productData.price}</p>
+          <p class="font-sora text-3xl text-white">${productData.price}</p>
         </div>
       </div>
     </div>

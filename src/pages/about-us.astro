@@ -3,40 +3,86 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<div class="flex flex-col items-center text-center">
-		<img
-			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
-			class="w-96 h-auto"
-		/>
-		<p class="w-3/4 font-inter text-2xl">
-			Habtronics is a student-led organization that aims to facilitate open access to upper air environments to pioneer education and research opportunities. We are dedicated to providing high-altitude balloon tracking and recovery services to students and educators around the world. Our mission is to inspire the next generation of scientists, engineers, and explorers by providing hands-on experience in the field of high-altitude ballooning.
-		</p>
-	</div>
-	<div class="team flex flex-col items-center text-center">
-		<h1 class="font-gugi text-4xl mt-10">Meet the Team</h1>
-		<div class="flex flex-col items-center text-center mt-5">
-			<img
-				src="https://maxsrobotics.vercel.app/assets/portrait.jpg"
-				class="w-48 h-auto"
-			/>
-			<p class="font-gugi text-3xl mb-0 mt-3">
-				Max Kendall
-			</p>
-			<p class="font-gugi w-1/2 text-xl mt-2 mb-14">
-				Founder & CEO. Max is a middle school student with a passion for engineering, teaching, electonics, and programming.
-			</p>
-		</div>
-		<div class="flex flex-col items-center text-center">
-			<img
-				src="https://cdn.hackclubber.dev/slackcdn/196568eb14b80f5af79dda797716e790.png"
-				class="w-48 h-auto"
-			/>
-			<p class="font-gugi text-3xl mb-0 mt-3">
-				Seth Kendall
-			</p>
-			<p class="font-gugi w-1/2 text-xl mt-2 mb-14">
-				Cofounder of Habtronics. Seth is Max's dad who shares his love for STEM education and learning.
-			</p>
-		</div>
+	<div class="items-center justify-center flex flex-col mx-auto w-full">
+		<!-- Who We Are -->
+		<section class="py-12 px-4 w-full">
+			<div class="max-w-5xl mx-auto">
+				<img
+					src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+					alt="Habtronics logo"
+					class="w-52 h-auto mb-6"
+				/>
+
+				<h1 class="text-5xl font-sora mb-4">Who We Are</h1>
+
+				<p class="font-inter text-lg leading-relaxed text-gray-800 max-w-3xl">
+					Habtronics is a student-led initiative pioneering access to the
+					edge of space. We empower students and educators by providing
+					high-altitude balloon technology for real-world science,
+					engineering, and exploration. Our goal is to make high-altitude
+					hands-on, accessible, and exciting for everyone — from middle
+					school classrooms to your workbench.
+				</p>
+			</div>
+		</section>
+
+		<!-- What We Do -->
+		<section class="bg-[#FDF9F5] py-12 px-4 w-full">
+			<div class="max-w-5xl mx-auto">
+				<h2 class="text-5xl font-sora mb-4">What We Do</h2>
+				<p class="text-lg text-gray-700 leading-relaxed max-w-3xl">
+					We design, build, and launch high-altitude balloon systems
+					that can reach the stratosphere — carrying sensors, cameras,
+					and experiments over 100,000 feet above Earth. We offer:
+				</p>
+				<ul class="mt-6 text-lg text-gray-800 list-disc list-inside max-w-3xl">
+					<li>Modular payload kits for custom experiments</li>
+					<li>Real-time GPS tracking and recovery support</li>
+					<li>Educational workshops and curriculum support</li>
+				</ul>
+			</div>
+		</section>
+
+		<!-- Meet the Team -->
+		<section class="py-16 px-4 w-full">
+			<div class="max-w-5xl mx-auto">
+				<h2 class="text-5xl font-sora mb-10">Meet the Team</h2>
+
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+					<div class="bg-white border-2 border-black rounded-xl p-6 shadow-sm w-full max-w-sm hover:shadow-xl transition duration-300 ease-in-out">
+						<img
+							src="https://maxsrobotics.vercel.app/assets/portrait.jpg"
+							alt="Max Kendall portrait"
+							class="w-32 h-32 object-cover rounded-full mb-4 object-[100%_15%]"
+						/>
+						<h3 class="font-sora text-2xl mb-1">Max Kendall</h3>
+						<a href="mailto:max@habtronics.com" class="font-inter text-sm">
+							max@habtronics.com
+						</a>
+						<p class="text-base text-gray-700">
+							Founder & CEO. Max is a middle-school student with a
+							passion for engineering, electronics, and inspiring
+							others to explore the skies through technology.
+						</p>
+					</div>
+
+					<div class="bg-white border-2 border-black rounded-xl p-6 shadow-sm w-full max-w-sm hover:shadow-xl transition duration-300 ease-in-out">
+						<img
+							src="https://cdn.hackclubber.dev/slackcdn/196568eb14b80f5af79dda797716e790.png"
+							alt="Seth Kendall portrait"
+							class="w-32 h-32 object-cover rounded-full mb-4 object-top"
+						/>
+						<h3 class="font-sora text-2xl mb-1">Seth Kendall</h3>
+						<a href="mailto:seth@habtronics.com" class="font-inter text-sm">
+							seth@habtronics.com
+						</a>
+						<p class="text-base text-gray-700">
+							Cofounder. He works alongside Max to support STEM
+							education through real-world, high-altitude projects.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
 	</div>
 </Layout>

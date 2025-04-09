@@ -7,7 +7,8 @@ module.exports = {
       fontFamily: {
         gugi: ['"Gugi"', "gugi"],
       },
+      scrollBehavior: ['responsive'],
     },
   },
-  plugins: [],
+  plugins: [typography],
 };

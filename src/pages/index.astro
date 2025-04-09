@@ -1,23 +1,188 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Carousel from "../components/Carousel.astro";
 ---
 
 <Layout>
-	<div class="flex flex-col items-center text-center">
-		<img
-			src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
-			class="w-70 md:w-80 lg:w-100"
+	<!-- Hero -->
+	<section
+		class="flex flex-row justify-between items-center bg-gradient-to-b from-[#00172D] to-[#3c51a6] text-white px-6 py-16 rounded-[30px] w-[1150px] h-[670px] mx-auto"
+	>
+		<div class="text-left space-y-4 ml-[100px] fade-up">
+			<h1 class="text-7xl font-bold font-sora leading-tight">
+				Open access <br /> to the <br /> stratosphere
+			</h1>
+			<p class="text-xl font-inter">
+				Facilitating open access to upper air environments <br /> to pioneer
+				education and research opportunities
+			</p>
+			<a
+				href="#what-we-do"
+				class="inline-block bg-black text-white font-semibold py-3 px-5 mt-4 rounded-md shadow-md transition hover-50"
+			>
+				Learn More
+			</a>
+		</div>
+		<div class="float-in">
+			<img
+				src="/balloon.png"
+				alt="High-altitude balloon"
+				class="w-auto max-w-sm mx-auto h-[550px] mr-[100px]"
+			/>
+		</div>
+	</section>
+
+	<!-- What We Do -->
+	<section
+		class="flex flex-col justify-center bg-[#FDF9F5] py-10 mx-auto items-center"
+		id="what-we-do"
+	>
+		<h2 class="text-4xl font-sora font-extrabold text-left w-[1150px] mb-4">
+			What We Do
+		</h2>
+		<div class="grid grid-cols-4 text-center w-[1150px]">
+			<div
+				class="p-6 bg-white rounded-[30px] shadow-sm w-[280px] h-[380px]"
+			>
+				<img src="https://placehold.co/200x200" class="mx-auto mb-4" />
+				<h3 class="text-xl font-bold font-sora">Electronics</h3>
+				<p class="text-sm mt-2 font-inter">
+					We provide electronics for necessary high-altitude
+					ballooning systems.
+				</p>
+			</div>
+			<div
+				class="p-6 bg-white rounded-[30px] shadow-sm h-[380px] w-[280px]"
+			>
+				<img src="https://placehold.co/200x200" class="mx-auto mb-4" />
+				<h3 class="text-xl font-bold font-sora">Education Outreach</h3>
+				<p class="text-sm mt-2 font-inter">
+					We provide materials and support (soon curriculum) for
+					middle through high-school science classes.
+				</p>
+			</div>
+			<div
+				class="p-6 bg-white rounded-[30px] shadow-sm h-[380px] w-[280px]"
+			>
+				<img src="https://placehold.co/200x200" class="mx-auto mb-4" />
+				<h3 class="text-xl font-bold font-sora">Launch Support</h3>
+				<p class="text-sm mt-2 font-inter">
+					We provide on-site launch support services for facilitating
+					and supporting launches.
+					<br> <span class="text-red-600">COMING SOON</span>
+				</p>
+			</div>
+			<div
+				class="p-6 bg-white rounded-[30px] shadow-sm h-[380px] w-[280px]"
+			>
+				<img src="https://placehold.co/200x200" class="mx-auto mb-4" />
+				<h3 class="text-xl font-bold font-sora">Infrastructure</h3>
+				<p class="text-sm mt-2 font-inter">
+					We provide all necessary launch infrastructure for a
+					successful high-altitude balloon launch.
+					<br> <span class="text-red-600">COMING SOON</span>
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- In Action -->
+	<section class="bg-[#FDF9F5] py-10">
+		<Carousel
+			title="In Action"
+			slides={[
+				{
+					imgSrc: "/images/burst.jpg",
+					imgAlt: "High-altitude balloon burst at high-altitude",
+				},
+				{
+					imgSrc: "/images/launch1.jpg",
+					imgAlt: "Balloon launch",
+				},
+				{
+					imgSrc: "/images/Earth5.jpg",
+					imgAlt: "View of earth at high-altitude",
+				},
+				{
+					imgSrc: "/images/stratoscience.jpg",
+					imgAlt: "Stratoscience student payload",
+				},
+			]}
 		/>
-		<p class="w-11/12 md:w-3/4 font-gugi text-lg md:text-2xl lg:text-4xl p-10">
-			Facilitating open access to upper air environments to pioneer
-			education and research opportunities
-		</p>
-	</div>
-	<div class="relative z-0">
-		<video autoplay muted loop class="w-full h-auto">
+	</section>
+
+	<!-- Why It Matters -->
+	<section
+		class="flex flex-col justify-center bg-[#FDF9F5] py-10 mx-auto items-center"
+	>
+		<h2 class="text-4xl font-sora font-extrabold text-left w-[1150px] mb-4">
+			Why It Matters
+		</h2>
+		<video autoplay muted loop class="w-[1150px] h-auto rounded-[30px]">
 			<source
 				src="https://cloud-q9lrr3iua-hack-club-bot.vercel.app/0habtronics_bannervideo.mp4"
 			/>
 		</video>
-	</div>
+	</section>
+
+	<!-- Call to Action -->
+	<section
+		class="flex flex-col justify-center bg-[#FDF9F5] py-10 mx-auto items-center"
+	>
+		<h2 class="text-4xl font-sora font-extrabold text-left w-[1150px] mb-4">
+			Call to Action
+		</h2>
+		<div class="flex flex-row gap-4">
+			<a
+				href=""
+				class="inline-block bg-black text-white font-semibold py-3 px-5 mt-4 rounded-md shadow-md transition hover-50 w-[250px] text-center"
+			>
+				Launch <br /> Resources
+			</a>
+			<a
+				href=""
+				class="inline-block bg-black text-white font-semibold py-3 px-5 mt-4 rounded-md shadow-md transition hover-50 w-[250px] text-center"
+			>
+				School <br /> Resources
+			</a>
+			<a
+				href="/contact"
+				class="inline-block bg-black text-white font-semibold py-3 px-5 mt-4 rounded-md shadow-md transition hover-50 w-[250px] text-center"
+			>
+				Contact <br /> Us
+			</a>
+		</div>
+	</section>
 </Layout>
+
+<style>
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(60px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	@keyframes floatIn {
+		from {
+			opacity: 0;
+			transform: translateX(100px);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	.fade-up {
+		animation: fadeUp 1.5s ease-out forwards;
+	}
+
+	.float-in {
+		animation: floatIn 1.5s ease-out forwards;
+	}
+</style>

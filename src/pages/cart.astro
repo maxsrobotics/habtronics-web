@@ -10,23 +10,48 @@ interface CartItem {
 ---
 
 <Layout>
-  <div class="cart-container p-5 font-inter">
-    <h1 class="text-4xl mb-5">Your Cart</h1>
-    <table class="w-full border-separate border-spacing-y-2 mt-5">
-      <thead>
-        <tr>
-          <th class="border p-3 text-left bg-gray-200 text-lg">Product</th>
-          <th class="border p-3 text-left bg-gray-200 text-lg">Price</th>
-          <th class="border p-3 text-left bg-gray-200 text-lg">Quantity</th>
-          <th class="border p-3 text-left bg-gray-200 text-lg w-50">Total</th>
-          <th class="border p-3 text-left bg-gray-200 text-lg">Action</th>
-        </tr>
-      </thead>
-      <tbody id="cart-items">
-        <!-- Cart items will be injected here by JavaScript -->
-      </tbody>
-    </table>
-    <button id="checkout-button" class="mt-5 px-5 py-2 cursor-pointer float-right font-gugi text-lg rounded-lg bg-gray-300 hover:opacity-50">Checkout</button>
+  <div class="max-w-5xl mx-auto px-6 py-12 font-inter">
+    <h1 class="text-4xl font-sora mb-8">Your Cart</h1>
+
+    <!-- Cart Content -->
+    <div id="cart-contents">
+      <table class="w-full border-separate border-spacing-y-2 mb-6">
+        <thead>
+          <tr>
+            <th class="border p-3 bg-[#F3F2EF] text-left text-lg font-semibold">Product</th>
+            <th class="border p-3 bg-[#F3F2EF] text-left text-lg font-semibold">Price</th>
+            <th class="border p-3 bg-[#F3F2EF] text-left text-lg font-semibold">Quantity</th>
+            <th class="border p-3 bg-[#F3F2EF] text-left text-lg font-semibold">Total</th>
+            <th class="border p-3 bg-[#F3F2EF] text-left text-lg font-semibold">Action</th>
+          </tr>
+        </thead>
+        <tbody id="cart-items">
+          <!-- JS will populate rows -->
+        </tbody>
+      </table>
+
+      <div class="flex justify-between items-center mt-8">
+        <p class="text-xl font-semibold" id="cart-total">Total: $0.00</p>
+        <button
+          id="checkout-button"
+          class="bg-[#FDF9F5] text-black border-2 border-black px-6 py-2 rounded-lg text-sm font-medium hover:opacity-70 transition"
+        >
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty Message -->
+    <div id="empty-message" class="hidden text-center mt-8 text-gray-700">
+      <p class="text-lg mb-4">Your cart is empty.</p>
+      <a
+        href="/shop"
+        class="inline-block bg-black text-white px-6 py-2 rounded-lg text-sm font-medium hover:opacity-80 transition"
+      >
+        Continue Shopping
+      </a>
+    </div>
+    
   </div>
 </Layout>
 
@@ -34,83 +59,83 @@ interface CartItem {
   document.addEventListener("DOMContentLoaded", () => {
     const cartItems = JSON.parse(localStorage.getItem("cart") || "[]");
     const tbody = document.getElementById("cart-items");
+    const totalDisplay = document.getElementById("cart-total");
+    const emptyMessage = document.getElementById("empty-message");
+    const cartContents = document.getElementById("cart-contents");
 
-    const combinedItems = cartItems.reduce((acc: any, item: any) => {
-      const existingItem = acc.find((i: any) => i.priceId === item.priceId);
-      if (existingItem) {
-        existingItem.quantity = item.quantity;
-      } else {
-        acc.push(item);
-      }
-      return acc;
-    }, []);
+    if (cartItems.length === 0) {
+      cartContents.classList.add("hidden");
+      emptyMessage.classList.remove("hidden");
+      return;
+    }
 
-    combinedItems.forEach((item: any) => {
+    let total = 0;
+
+    cartItems.forEach((item) => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+
       const row = document.createElement("tr");
-
       row.innerHTML = `
         <td class="border p-3">${item.title}</td>
         <td class="border p-3">$${item.price}</td>
-        <td class="border p-3"><input type="number" value="${item.quantity}" min="1" data-price-id="${item.priceId}" class="quantity-input border p-1"></td>
-        <td class="border p-3">$${(item.price * item.quantity).toFixed(2)}</td>
-        <td class="border p-3"><button class="delete-button cursor-pointer text-red-500 text-lg px-5 py-2 rounded-lg bg-gray-300 hover:opacity-50" data-price-id="${item.priceId}">Delete</button></td>
+        <td class="border p-3">
+          <input type="number" value="${item.quantity}" min="1"
+            data-price-id="${item.priceId}"
+            class="quantity-input border px-2 py-1 w-16 rounded" />
+        </td>
+        <td class="border p-3 total-cell">$${itemTotal.toFixed(2)}</td>
+        <td class="border p-3">
+          <button class="delete-button bg-red-100 text-red-700 px-3 py-1 rounded hover:bg-red-200"
+            data-price-id="${item.priceId}">
+            Delete
+          </button>
+        </td>
       `;
-
-      tbody!.appendChild(row);
+      tbody.appendChild(row);
     });
 
-    document.querySelectorAll('.quantity-input').forEach(input => {
-      input.addEventListener('change', (event) => {
-        const inputElement = event.target as HTMLInputElement;
-        let newQuantity = parseInt(inputElement.value);
-        if (newQuantity < 1) {
-          newQuantity = 1;
-          inputElement.value = "1";
-        }
-        const priceId = inputElement.getAttribute('data-price-id');
+    totalDisplay.textContent = `Total: $${total.toFixed(2)}`;
 
-        const item = combinedItems.find((i: any) => i.priceId === priceId);
+    // Handle quantity changes
+    document.querySelectorAll(".quantity-input").forEach((input) => {
+      input.addEventListener("change", (e) => {
+        const inputEl = e.target as any;
+        let qty = parseInt(inputEl.value);
+        if (qty < 1) qty = 1;
+        inputEl.value = qty;
+
+        const priceId = inputEl.dataset.priceId;
+        const item = cartItems.find((i) => i.priceId === priceId);
         if (item) {
-          item.quantity = newQuantity;
-          inputElement.closest('tr')!.querySelector('td:nth-last-child(2)')!.textContent = `$${(item.price * item.quantity).toFixed(2)}`;
-
-          // Update the quantity in the original cartItems array
-          const originalItem = cartItems.find((i: any) => i.priceId === priceId);
-          if (originalItem) {
-            originalItem.quantity = newQuantity;
-          }
-
-          // Update localStorage with the new quantities
+          item.quantity = qty;
           localStorage.setItem("cart", JSON.stringify(cartItems));
+
+          const row = inputEl.closest("tr");
+          const newTotal = item.price * item.quantity;
+          row.querySelector(".total-cell").textContent = `$${newTotal.toFixed(2)}`;
+
+          const newTotalSum = cartItems.reduce((sum, i) => sum + i.price * i.quantity, 0);
+          totalDisplay.textContent = `Total: $${newTotalSum.toFixed(2)}`;
         }
       });
     });
 
-    document.querySelectorAll('.delete-button').forEach(button => {
-      button.addEventListener('click', (event) => {
-        const buttonElement = event.target as HTMLElement;
-        const priceId = buttonElement.getAttribute('data-price-id');
-
-        // Remove the item from combinedItems and cartItems arrays
-        const itemIndex = combinedItems.findIndex((i: any) => i.priceId === priceId);
-        if (itemIndex > -1) {
-          combinedItems.splice(itemIndex, 1);
+    // Handle delete
+    document.querySelectorAll(".delete-button").forEach((button: any) => {
+      button.addEventListener("click", () => {
+        const priceId = button.dataset.priceId;
+        const index = cartItems.findIndex((i) => i.priceId === priceId);
+        if (index !== -1) {
+          cartItems.splice(index, 1);
+          localStorage.setItem("cart", JSON.stringify(cartItems));
+          location.reload();
         }
-
-        const originalItemIndex = cartItems.findIndex((i: any) => i.priceId === priceId);
-        if (originalItemIndex > -1) {
-          cartItems.splice(originalItemIndex, 1);
-        }
-
-        // Update localStorage with the new cart items
-        localStorage.setItem("cart", JSON.stringify(cartItems));
-
-        // Remove the row from the table
-        buttonElement.closest('tr')!.remove();
       });
     });
 
-    document.getElementById('checkout-button')!.addEventListener('click', () => {
+    // Checkout
+    document.getElementById("checkout-button").addEventListener("click", () => {
       window.location.href = "/checkout";
     });
   });

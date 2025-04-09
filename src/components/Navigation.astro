@@ -1,33 +1,29 @@
 ---
 import "../layouts/Layout.astro"
 ---
-<div class="navbar fixed top-0 w-full h-15 bg-black flex items-center z-[10000]">
+<div class="navbar fixed top-0 w-full h-15 bg-white/70 backdrop-blur-md flex items-center z-[10000] shadow-sm transition-all duration-300">
+
     <div class="logo">
         <a href="/">
-            <img src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg" class="h-15 invert">
+            <h1 class="font-sora font-bold text-xl ml-5">habtronics</h1>
         </a>
     </div>
-    <div class="links ml-auto mr-18 gap-18 items-center sm:hidden md:flex" id="nav-links">
-        <a href="/" class="font-gugi text-2xl text-white no-underline hover-50">HOME</a>
-        <a href="/shop" class="font-gugi text-2xl text-white no-underline hover-50">SHOP</a>
-        <a href="/about-us" class="font-gugi text-2xl text-white no-underline hover-50">ABOUT US</a>
+    <div class="links ml-auto mr-18 gap-[50px] items-center sm:hidden md:flex text-xl" id="nav-links">
+        <a href="/" class="font-inter no-underline hover-50">Home</a>
+        <a href="/shop" class="font-inter no-underline hover-50">Shop</a>
+        <a href="/about-us" class="font-inter no-underline hover-50">About</a>
+        <a href="/resources" class="font-inter no-underline hover-50">Resources</a>
+        <a href="/gallery" class="font-inter no-underline hover-50">Gallery</a>
+        <a href="/contact" class="font-inter no-underline hover-50">Contact</a>
     </div>
     <div class="cart relative mr-5 items-center">
         <a href="/cart">
-            <img src="https://cloud-5kujaastv-hack-club-bot.vercel.app/0bag.svg" alt="Cart" class="h-7 invert hover-50">
+            <img src="https://cloud-5kujaastv-hack-club-bot.vercel.app/0bag.svg" alt="Cart" class="h-7 hover-50">
         </a>
     </div>
-    <div class="hamburger text-3xl text-white cursor-pointer mr-5 md:hidden" id="hamburger">
-        &#9776;
-    </div>
-</div>
-<div class="mobile-menu hidden flex-col items-center bg-black text-white w-full" id="mobile-menu">
-    <a href="/" class="font-gugi text-2xl text-white no-underline hover-50 py-2">HOME</a>
-    <a href="/shop" class="font-gugi text-2xl text-white no-underline hover-50 py-2">SHOP</a>
-    <a href="/about-us" class="font-gugi text-2xl text-white no-underline hover-50 py-2">ABOUT US</a>
 </div>
 
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", () => {
         const hamburger = document.getElementById("hamburger");
         const mobileMenu = document.getElementById("mobile-menu");
@@ -39,4 +35,4 @@ import "../layouts/Layout.astro"
             });
         }
     });
-</script>
+</script> -->

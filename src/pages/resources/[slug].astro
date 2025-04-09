@@ -1,0 +1,22 @@
+---
+import { getCollection, getEntry, render } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+
+const { slug } = Astro.params;
+const resource = await getEntry("resources", slug);
+const { Content } = await render(resource);
+
+export async function getStaticPaths() {
+    const resources = await getCollection("resources");
+    return resources.map((resource) => ({
+        params: { slug: resource.slug },
+    }));
+}
+---
+
+<Layout>
+    <article class="prose max-w-4xl mx-auto py-10">
+        <h1 class="font-sora text-extrabold">{resource.data.title}</h1>
+        <div class="font-inter"><Content /></div>
+    </article>
+</Layout>

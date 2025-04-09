@@ -1,33 +1,45 @@
 ---
 export const prerender = false;
 interface Props {
-    title: string;
-    short: string;
-    price: string;
-    image: string;
-    position?: string;
-    priceId: string;
+	title: string;
+	short: string;
+	price: string;
+	image: string;
+	position?: string;
+	priceId: string;
 }
 
 const { title, short, price, image, position, priceId } = Astro.props;
 const { origin } = Astro.url;
 ---
-<div class="product-card flex flex-col items-center w-80 h-115 border-4 border-black rounded-3xl relative">
-    <img src={image} class="object-cover w-65 h-70 rounded-lg mt-7" style={`object-position: ${position};`} />
-    <h1 class="font-gugi text-lg font-normal leading-normal w-65 mt-3">{title}</h1>
-    <div class="price-banner flex flex-row items-center gap-16 absolute bottom-3">
-        <p class="font-gugi text-2xl font-normal leading-normal">${price}</p>
-        <button data-short={short} id="view-page" class="view-page w-25 h-9 font-gugi text-xs font-normal leading-normal rounded-lg bg-gray-200 cursor-pointer border-black border-3 hover-50">View Page</button>
-    </div>
+
+<div class="product-card w-full max-w-[300px] flex flex-col items-center border-2 border-black rounded-2xl p-4 shadow-md bg-white hover:shadow-xl transition-shadow duration-300">
+	<img
+		src={image}
+		class="object-cover w-full h-60 rounded-xl mb-4"
+		style={`object-position: ${position};`}
+	/>
+
+	<h1 class="font-inter text-lg font-semibold text-left mb-2">{title}</h1>
+
+	<div class="w-full flex items-center justify-between mt-auto">
+		<p class="font-inter text-xl font-semibold">${price}</p>
+		<button
+			data-short={short}
+			id="view-page"
+			class="px-4 py-1.5 border-2 border-black rounded-lg bg-[#FDF9F5] hover-50 font-inter text-sm transition-all duration-200 cursor-pointer"
+		>
+			View Page
+		</button>
+	</div>
 </div>
 
 <script>
-    const buttons = document.querySelectorAll('button.view-page');
+	const buttons = document.querySelectorAll('#view-page');
 
-    // Handle clicks on each button.
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        window.location.href = `${origin}/products/${button!.getAttribute("data-short")}`;
-      });
-    });
+	buttons.forEach((button) => {
+		button.addEventListener('click', () => {
+			window.location.href = `${origin}/products/${button.getAttribute("data-short")}`;
+		});
+	});
 </script>

@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+
+const resources = await getCollection("resources");
+---
+
+<footer class="bg-[#F9F6F3] text-sm text-center pt-12 border-t border-gray-200 justify-center">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-6 text-center">
+      <div class="flex flex-col items-center">
+        <p class="font-bold text-base mb-2">About</p>
+        <p class="text-sm italic mx-auto max-w-xs">
+          “Facilitating open access to upper air environments to pioneer education and research opportunities”
+        </p>
+        <img src="/favicon.svg" alt="Logo" class="w-10 mt-3" />
+      </div>
+      <div class="flex flex-col">
+        <p class="font-bold text-base mb-2">Links</p>
+        <a href="/">Home</a>
+        <a href="/shop">Shop</a>
+        <a href="/about">About</a>
+        <a href="/resources">Resources</a>
+        <a href="/gallery">Gallery</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="flex flex-col">
+        <p class="font-bold text-base mb-2">Resources</p>
+        {resources.map((resource) => (
+          <a href={`/resources/${resource.slug}`} class="mb-1">
+            {resource.data.title}
+          </a>
+        ))}
+      </div>
+      <div>
+        <p class="font-bold text-base mb-2">Connect</p>
+        <a href="mailto:info@habtronics.com">info@habtronics.com</p>
+      </div>  
+    </div>
+  
+    <div class="mt-10 text-xs text-gray-500 pb-5">
+      © 2025 HABTRONICS. All rights reserved. <br />
+      Built with ♥ by students & engineers
+    </div>
+</footer>  

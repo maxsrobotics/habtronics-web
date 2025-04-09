@@ -8,77 +8,78 @@ let products = [];
 const { origin } = Astro.url;
 
 try {
-    const response = await fetch(`${origin}/api/retrieve_product_meta`);
-    if (response.ok) {
-        products = await response.json();
-    } else {
-        console.error('Failed to fetch product metadata:', await response.text());
-    }
+	const response = await fetch(`${origin}/api/retrieve_product_meta`);
+	if (response.ok) {
+		products = await response.json();
+	} else {
+		console.error("Failed to fetch product metadata:", await response.text());
+	}
 } catch (error) {
-    console.error('Error fetching product metadata:', error);
-} 
+	console.error("Error fetching product metadata:", error);
+}
 ---
 
 <Layout>
-    <div class="banner flex flex-row items-center justify-center">
-            <img
-                    src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
-                    class="h-32 mr-16 md:h-24 md:mr-8 sm:h-16 sm:mr-0 sm:mb-2"
-            />
-            <form role="search" id="search-form" onsubmit="return false;" class="flex items-center">
-                    <input type="text" placeholder="Search" id="search-input" class="h-11 w-91 border-3 border-black font-gugi text-2xl placeholder-gugi placeholder-text-2xl md:h-9 md:w-64 md:text-xl md:placeholder-text-l sm:h-6 sm:w-50 sm:text-base sm:placeholder-text-base pl-2" />
-            </form>
-    </div>
-        <div class="category font-gugi text-4xl md:text-3xl sm:text-xl self-center flex justify-center mb-5">
-                <p>Electronics</p>
-        </div>
-    <div id="product-list" class="products flex ml-11 gap-8 flex-row flex-wrap justify-start sm:justify-center md:ml-0">
-            {products.map((product: any) => (
-                    <ProductCard
-                            title={product.metadata.title}
-                            short={product.metadata.short}
-                            price={product.price}
-                            image={product.image}
-                            priceId={product.price_id}
-                    />
-            ))}
-    </div>
+	<section class="bg-[#FDF9F5] py-16">
+		<div class="max-w-[1150px] mx-auto px-4">
+			<!-- Banner -->
+			<div class="flex flex-col md:flex-row items-center justify-center mb-12">
+				<img
+					src="https://cloud-glhzd6bu2-hack-club-bot.vercel.app/0habtronics.svg"
+					class="h-24 md:h-28 mb-6 md:mb-0 md:mr-6"
+				/>
+				<form role="search" id="search-form" onsubmit="return false;" class="w-full md:w-auto">
+					<input
+						type="text"
+						id="search-input"
+						placeholder="Search"
+						class="w-full md:w-80 h-12 px-4 border-2 border-black rounded-md font-inter text-lg placeholder:text-lg placeholder:font-inter focus:outline-none focus:ring-2 focus:ring-black"
+					/>
+				</form>
+			</div>
+
+			<!-- Category Title -->
+			<h2 class="text-4xl font-sora font-extrabold text-left mb-8">Electronics</h2>
+
+			<!-- Products Grid -->
+			<div
+				id="product-list"
+				class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8"
+			>
+				{products.map((product: any) => (
+					<ProductCard
+						title={product.metadata.title}
+						short={product.metadata.short}
+						price={product.price}
+						image={product.image}
+						priceId={product.price_id}
+					/>
+				))}
+			</div>
+		</div>
+	</section>
 </Layout>
 
 <script>
-        document.addEventListener("DOMContentLoaded", () => {
-                const searchInput = document.getElementById(
-                        "search-input",
-                ) as HTMLInputElement | null;
-                const productList = document.getElementById(
-                        "product-list",
-                ) as HTMLElement | null;
+	document.addEventListener("DOMContentLoaded", () => {
+		const searchInput = document.getElementById("search-input") as any;
+		const productList = document.getElementById("product-list");
 
-                if (!searchInput || !productList) {
-                        return;
-                }
+		if (!searchInput || !productList) return;
 
-                searchInput.addEventListener("input", () => {
-                        const searchTerm = searchInput.value.toLowerCase();
-                        const products = productList.children;
+		searchInput.addEventListener("input", () => {
+			const searchTerm = searchInput.value.toLowerCase();
+			const products = productList.children;
 
-                        Array.from(products).forEach((product) => {
-                                const productElement = product as HTMLElement;
-                                const titleElement = productElement.querySelector(
-                                        "h1",
-                                ) as HTMLElement | null;
+			Array.from(products).forEach((product) => {
+				const productElement = product as any;
+				const titleElement = productElement.querySelector("h1");
 
-                                if (!titleElement) {
-                                        return;
-                                }
+				if (!titleElement) return;
 
-                                const title = titleElement.textContent?.toLowerCase();
-                                if (title && title.includes(searchTerm)) {
-                                        productElement.style.display = "flex"; // Show matched products
-                                } else {
-                                        productElement.style.display = "none"; // Hide unmatched products
-                                }
-                        });
-                });
-        });
+				const title = titleElement.textContent?.toLowerCase();
+				productElement.style.display = title && title.includes(searchTerm) ? "flex" : "none";
+			});
+		});
+	});
 </script>
